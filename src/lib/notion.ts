@@ -18,7 +18,7 @@ function getEnv(name: string): string {
   if (!value) {
     throw new Error(`Missing env var: ${name}`);
   }
-  return value;
+  return value.trim(); // 👈 importante por si hay espacios o saltos de línea
 }
 
 const notion = new Client({
@@ -72,18 +72,19 @@ function pageToLink(page: any): LinkItem {
 }
 
 export async function fetchLinksFromNotion(): Promise<LinkItem[]> {
-  // Intentamos usar la API clásica si existe
   const anyNotion = notion as any;
 
+  // 1) Intentar API clásica: databases.query
   if (anyNotion.databases && typeof anyNotion.databases.query === "function") {
     const res = await anyNotion.databases.query({ database_id: dbId });
     return (res.results ?? []).map(pageToLink);
   }
 
-  // Fallback robusto: llamada manual con notion.request
+  // 2) Fallback robusto: llamada manual a la ruta v1/databases/.../query
   const res = await notion.request({
-    path: `databases/${dbId}/query`,
-    method: "POST",
+    path: `v1/databases/${dbId}/query`, // 👈 aquí estaba el fallo: faltaba "v1/"
+    method: "post",
+    body: {},
   });
 
   return (res as any).results.map(pageToLink);
