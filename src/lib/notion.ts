@@ -72,7 +72,19 @@ function pageToLink(page: any): LinkItem {
 }
 
 export async function fetchLinksFromNotion(): Promise<LinkItem[]> {
-  // SDK clásico
-  const res = await notion.databases.query({ database_id: dbId });
-  return res.results.map(pageToLink);
+  // Intentamos usar la API clásica si existe
+  const anyNotion = notion as any;
+
+  if (anyNotion.databases && typeof anyNotion.databases.query === "function") {
+    const res = await anyNotion.databases.query({ database_id: dbId });
+    return (res.results ?? []).map(pageToLink);
+  }
+
+  // Fallback robusto: llamada manual con notion.request
+  const res = await notion.request({
+    path: `databases/${dbId}/query`,
+    method: "POST",
+  });
+
+  return (res as any).results.map(pageToLink);
 }
