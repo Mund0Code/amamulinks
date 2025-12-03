@@ -7,7 +7,6 @@ const highlighted = links.filter((l) => l.highlight);
 const others = links.filter((l) => !l.highlight);
 ---
 
-
 <html lang="es">
   <head>
     <meta charset="utf-8" />
@@ -16,250 +15,561 @@ const others = links.filter((l) => !l.highlight);
       name="description"
       content="Productos recomendados con enlaces de afiliado Amazon y Temu."
     />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
-  <body
-    class="min-h-screen text-white"
-    style="
-      background: radial-gradient(circle at top,
-        #020617 0%, #020617 40%, #0b1120 70%, #020617 100%);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    "
-  >
-    <main class="flex items-center justify-center min-h-screen p-5">
-      <div
-        class="w-full max-w-5xl p-1 rounded-[30px]"
-        style="background: linear-gradient(135deg,
-          rgba(56,189,248,0.65),
-          rgba(168,85,247,0.5),
-          rgba(248,113,113,0.5));"
-      >
-        <div
-          class="w-full h-full rounded-[26px] p-6 md:p-8"
-          style="
-            background: rgba(15,23,42,0.88);
-            box-shadow: 0 26px 80px rgba(15,23,42,0.95);
-            border: 1px solid rgba(148,163,184,0.35);
-            backdrop-filter: blur(18px);
-          "
-        >
+  <body class="page">
+    <main class="page__main">
+      <div class="shell">
+        <div class="shell__inner">
           <!-- HEADER -->
-          <section class="flex flex-col items-center gap-4 w-full mb-6">
-            <div
-              class="p-1 rounded-full"
-              style="
-                background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
-                box-shadow: 0 15px 35px rgba(15,23,42,0.85);
-              "
-            >
-              <div
-                class="w-16 h-16 rounded-full bg-slate-900 flex items-center justify-center text-xl font-bold"
-              >
-                AL
+          <section class="header">
+            <div class="header__avatar-wrapper">
+              <div class="header__avatar">
+                <span>AL</span>
               </div>
             </div>
 
-            <h1 class="text-3xl md:text-4xl font-bold">Amamu Links</h1>
-            <p class="text-sm md:text-base opacity-85 text-center max-w-xl">
+            <h1 class="header__title">Amamu Links</h1>
+            <p class="header__subtitle">
               Productos recomendados con enlaces de afiliado Amazon y Temu.
             </p>
 
-            <div class="flex items-center w-full text-xs md:text-sm opacity-80 gap-2">
+            <div class="header__tags">
               <span>✨ Selección curada</span>
-              <span class="flex-1 border-t border-slate-600 mx-2"></span>
+              <span class="header__divider"></span>
               <span>🔗 Enlaces oficiales</span>
             </div>
           </section>
 
           <!-- DESTACADOS -->
-          {highlighted.length > 0 && (
-            <section class="w-full mb-5">
-              <h2 class="text-lg font-medium opacity-90 mb-2">Destacados</h2>
-              <div
-                class="grid gap-3"
-                style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));"
-              >
-                {highlighted.map((item) => (
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="no-underline"
-                  >
-                    <div
-                      class="w-full h-full p-4 rounded-[20px] transition-transform duration-150"
-                      style="
-                        background: linear-gradient(135deg,
-                          rgba(15,23,42,0.96),
-                          rgba(30,64,175,0.85));
-                        border: 1px solid rgba(148,163,184,0.35);
-                        box-shadow: 0 18px 40px rgba(15,23,42,0.6);
-                      "
-                      onmouseover="this.style.transform='translateY(-3px) scale(1.01)'; this.style.boxShadow='0 24px 60px rgba(15,23,42,0.9)'; this.style.borderColor='rgba(96,165,250,0.8)';"
-                      onmouseout="this.style.transform=''; this.style.boxShadow='0 18px 40px rgba(15,23,42,0.6)'; this.style.borderColor='rgba(148,163,184,0.35)';"
+          {
+            highlighted.length > 0 && (
+              <section class="section">
+                <h2 class="section__title">Destacados</h2>
+                <div class="grid grid--featured">
+                  {highlighted.map((item) => (
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="product-card product-card--featured"
                     >
-                      <div class="flex items-center gap-3">
-                        <!-- Imagen -->
-                        <div>
+                      <div class="product-card__content">
+                        <div class="product-card__image-wrapper">
                           {item.image ? (
                             <img
                               src={item.image}
                               alt={item.title}
-                              class="w-20 h-20 rounded-[18px] object-cover border border-slate-500/60 bg-slate-950"
+                              class="product-card__image"
+                              loading="lazy"
                             />
                           ) : (
-                            <div
-                              class="w-20 h-20 rounded-[18px] border border-slate-500/60 flex items-center justify-center text-[11px] opacity-70"
-                              style="background: radial-gradient(circle at top, #1f2937, #020617);"
-                            >
-                              Sin imagen
+                            <div class="product-card__image product-card__image--placeholder">
+                              <span>Sin imagen</span>
                             </div>
                           )}
                         </div>
 
-                        <!-- Texto -->
-                        <div class="flex flex-col gap-2 flex-1">
-                          <div class="flex items-center w-full gap-2">
-                            <span
-                              class="px-2 py-0.5 rounded-full text-[10px] uppercase tracking-[0.06em] opacity-90 bg-slate-100/10"
-                            >
-                              {item.category}
+                        <div class="product-card__body">
+                          <div class="product-card__badges">
+                            <span class="badge badge--category">
+                              {item.category || "Producto"}
                             </span>
                             {item.badge && (
-                              <span
-                                class="px-2 py-0.5 rounded-full text-[10px] uppercase tracking-[0.05em] bg-yellow-400 text-black"
-                              >
+                              <span class="badge badge--special">
                                 {item.badge}
                               </span>
                             )}
-                            <span class="flex-1" />
+                            <span class="product-card__spacer" />
                           </div>
 
-                          <h3 class="text-base font-bold">{item.title}</h3>
-                          <p class="text-xs opacity-85 line-clamp-3">
+                          <h3 class="product-card__title">{item.title}</h3>
+                          <p class="product-card__description">
                             {item.description}
                           </p>
 
-                          <div class="flex items-center w-full gap-2 text-xs">
-                            <span
-                              class="px-2 py-0.5 rounded-full text-[11px] bg-slate-100/10"
-                            >
+                          <div class="product-card__footer">
+                            <span class="badge badge--marketplace">
                               {item.marketplace === "amazon"
                                 ? "Amazon"
                                 : item.marketplace === "temu"
-                                ? "Temu"
-                                : "Producto"}
+                                  ? "Temu"
+                                  : "Producto"}
                             </span>
-                            <span class="flex-1" />
+                            <span class="product-card__spacer" />
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </section>
-          )}
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )
+          }
 
           <!-- MÁS PRODUCTOS -->
-          {others.length > 0 && (
-            <section class="w-full mt-4">
-              <h2 class="text-lg font-medium opacity-90 mb-2">Más productos</h2>
-              <div
-                class="grid gap-3"
-                style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));"
-              >
-                {others.map((item) => (
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="no-underline"
-                  >
-                    <div
-                      class="w-full h-full p-4 rounded-[20px] transition-transform duration-150"
-                      style="
-                        background: linear-gradient(135deg,
-                          rgba(15,23,42,0.96),
-                          rgba(30,64,175,0.85));
-                        border: 1px solid rgba(148,163,184,0.35);
-                        box-shadow: 0 18px 40px rgba(15,23,42,0.6);
-                      "
-                      onmouseover="this.style.transform='translateY(-3px) scale(1.01)'; this.style.boxShadow='0 24px 60px rgba(15,23,42,0.9)'; this.style.borderColor='rgba(96,165,250,0.8)';"
-                      onmouseout="this.style.transform=''; this.style.boxShadow='0 18px 40px rgba(15,23,42,0.6)'; this.style.borderColor='rgba(148,163,184,0.35)';"
+          {
+            others.length > 0 && (
+              <section class="section section--more">
+                <h2 class="section__title">Más productos</h2>
+                <div class="grid grid--more">
+                  {others.map((item) => (
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="product-card"
                     >
-                      <div class="flex items-center gap-3">
-                        <!-- Imagen -->
-                        <div>
+                      <div class="product-card__content">
+                        <div class="product-card__image-wrapper">
                           {item.image ? (
                             <img
                               src={item.image}
                               alt={item.title}
-                              class="w-20 h-20 rounded-[18px] object-cover border border-slate-500/60 bg-slate-950"
+                              class="product-card__image"
+                              loading="lazy"
                             />
                           ) : (
-                            <div
-                              class="w-20 h-20 rounded-[18px] border border-slate-500/60 flex items-center justify-center text-[11px] opacity-70"
-                              style="background: radial-gradient(circle at top, #1f2937, #020617);"
-                            >
-                              Sin imagen
+                            <div class="product-card__image product-card__image--placeholder">
+                              <span>Sin imagen</span>
                             </div>
                           )}
                         </div>
 
-                        <!-- Texto -->
-                        <div class="flex flex-col gap-2 flex-1">
-                          <div class="flex items-center w-full gap-2">
-                            <span
-                              class="px-2 py-0.5 rounded-full text-[10px] uppercase tracking-[0.06em] opacity-90 bg-slate-100/10"
-                            >
-                              {item.category}
+                        <div class="product-card__body">
+                          <div class="product-card__badges">
+                            <span class="badge badge--category">
+                              {item.category || "Producto"}
                             </span>
                             {item.badge && (
-                              <span
-                                class="px-2 py-0.5 rounded-full text-[10px] uppercase tracking-[0.05em] bg-yellow-400 text-black"
-                              >
+                              <span class="badge badge--special">
                                 {item.badge}
                               </span>
                             )}
-                            <span class="flex-1" />
+                            <span class="product-card__spacer" />
                           </div>
 
-                          <h3 class="text-base font-bold">{item.title}</h3>
-                          <p class="text-xs opacity-85 line-clamp-3">
+                          <h3 class="product-card__title">{item.title}</h3>
+                          <p class="product-card__description">
                             {item.description}
                           </p>
 
-                          <div class="flex items-center w-full gap-2 text-xs">
-                            <span
-                              class="px-2 py-0.5 rounded-full text-[11px] bg-slate-100/10"
-                            >
+                          <div class="product-card__footer">
+                            <span class="badge badge--marketplace">
                               {item.marketplace === "amazon"
                                 ? "Amazon"
                                 : item.marketplace === "temu"
-                                ? "Temu"
-                                : "Producto"}
+                                  ? "Temu"
+                                  : "Producto"}
                             </span>
-                            <span class="flex-1" />
+                            <span class="product-card__spacer" />
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </section>
-          )}
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )
+          }
 
           <!-- FOOTER -->
-          <footer class="mt-10 text-center text-[11px] opacity-70 space-y-1">
+          <footer class="footer">
             <p>Algunos enlaces son de afiliado (Amazon / Temu).</p>
             <p>
-              Si compras a través de ellos, apoyas mi trabajo sin coste extra para ti.
+              Si compras a través de ellos, apoyas mi trabajo sin coste extra
+              para ti.
             </p>
             <p>© 2025 Amamu. Hecho con Astro.</p>
           </footer>
         </div>
       </div>
     </main>
+
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+
+      .page {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        background: radial-gradient(
+          circle at top,
+          #020617 0%,
+          #020617 40%,
+          #0b1120 70%,
+          #020617 100%
+        );
+        color: #e5e7eb;
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+
+      .page__main {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+
+      .shell {
+        width: 100%;
+        max-width: 1120px;
+        padding: 4px;
+        border-radius: 30px;
+        background: linear-gradient(
+          135deg,
+          rgba(56, 189, 248, 0.65),
+          rgba(168, 85, 247, 0.5),
+          rgba(248, 113, 113, 0.5)
+        );
+      }
+
+      .shell__inner {
+        border-radius: 26px;
+        padding: 22px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        box-shadow: 0 26px 80px rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(18px);
+      }
+
+      @media (min-width: 768px) {
+        .shell__inner {
+          padding: 28px 32px;
+        }
+      }
+
+      /* HEADER */
+
+      .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        margin-bottom: 24px;
+      }
+
+      .header__avatar-wrapper {
+        padding: 4px;
+        border-radius: 999px;
+        background: linear-gradient(120deg, #38bdf8, #a855f7, #f97316);
+        box-shadow: 0 15px 35px rgba(15, 23, 42, 0.85);
+      }
+
+      .header__avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 999px;
+        background: #020617;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 20px;
+        color: #e5e7eb;
+      }
+
+      .header__title {
+        margin: 4px 0 0;
+        font-size: 28px;
+        font-weight: 700;
+      }
+
+      @media (min-width: 768px) {
+        .header__title {
+          font-size: 32px;
+        }
+      }
+
+      .header__subtitle {
+        margin: 0;
+        font-size: 14px;
+        opacity: 0.85;
+        text-align: center;
+        max-width: 520px;
+      }
+
+      .header__tags {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        font-size: 12px;
+        opacity: 0.8;
+        gap: 8px;
+        margin-top: 6px;
+      }
+
+      .header__divider {
+        flex: 1;
+        border-top: 1px solid rgba(71, 85, 105, 0.9);
+      }
+
+      /* SECCIONES */
+
+      .section {
+        width: 100%;
+      }
+
+      .section__title {
+        font-size: 16px;
+        font-weight: 500;
+        opacity: 0.9;
+        margin: 0 0 8px;
+      }
+
+      .section--more {
+        margin-top: 18px;
+      }
+
+      /* GRID */
+
+      /* GRID BASE */
+      .grid {
+        width: 100%;
+        display: grid;
+        gap: 36px; /* 👈 más espacio entre cards */
+        margin-top: 8px;
+        justify-content: center;
+        justify-items: center;
+      }
+
+      /* Mobile first: 1 columna */
+      .grid--featured,
+      .grid--more {
+        grid-template-columns: 1fr;
+      }
+
+      /* Tablets (≥ 768px) → 2 columnas */
+      @media (min-width: 768px) {
+        .grid--featured,
+        .grid--more {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      /* Desktop (≥ 1024px) → 3 columnas */
+      @media (min-width: 1024px) {
+        .grid--featured,
+        .grid--more {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      /* PRODUCT CARD */
+
+      .product-card {
+        text-decoration: none;
+        color: inherit;
+        margin-bottom: 18px; /* 👈 separación extra */
+      }
+
+      .product-card__content {
+        width: 100%;
+        max-width: 420px; /* la card nunca será más ancha que esto */
+        height: 100%;
+        padding: 14px 16px;
+        border-radius: 20px;
+        background: linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.96),
+          rgba(30, 64, 175, 0.85)
+        );
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        transition:
+          transform 0.16s ease-out,
+          box-shadow 0.16s ease-out,
+          border-color 0.16s ease-out;
+      }
+
+      /* Glow especial para destacados */
+      .product-card--featured .product-card__content {
+        background: linear-gradient(
+          135deg,
+          rgba(30, 64, 175, 0.98),
+          rgba(59, 130, 246, 0.95)
+        );
+        box-shadow: 0 24px 70px rgba(56, 189, 248, 0.55);
+        border-color: rgba(96, 165, 250, 0.95);
+      }
+
+      .product-card:hover .product-card__content {
+        transform: translateY(-3px) scale(1.01);
+        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+        border-color: rgba(96, 165, 250, 0.8);
+      }
+
+      .product-card__image-wrapper {
+        flex-shrink: 0;
+      }
+
+      .product-card__image {
+        width: 80px;
+        height: 80px;
+        border-radius: 18px;
+        object-fit: cover;
+        border: 1px solid rgba(148, 163, 184, 0.45);
+        background: #020617;
+      }
+
+      .product-card__image--placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        opacity: 0.7;
+        background: radial-gradient(circle at top, #1f2937, #020617);
+      }
+
+      .product-card__body {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-start;
+        width: 100%;
+      }
+
+      .product-card__badges {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 6px;
+      }
+
+      .product-card__spacer {
+        flex: 1;
+      }
+
+      .product-card__title {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .product-card__description {
+        margin: 0;
+        font-size: 12px;
+        opacity: 0.85;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .product-card__footer {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 8px;
+        margin-top: 4px;
+      }
+
+      @media (max-width: 640px) {
+        /* Layout general: pegado arriba, no centrado total */
+        .page__main {
+          align-items: flex-start;
+          padding-top: 20px;
+          padding-bottom: 24px;
+        }
+
+        /* El contenedor de cristal ocupa casi todo el ancho */
+        .shell {
+          border-radius: 18px;
+        }
+
+        .shell__inner {
+          border-radius: 14px;
+          padding: 16px;
+        }
+
+        /* Grid: siempre 1 columna en móvil */
+        .grid--featured,
+        .grid--more {
+          grid-template-columns: 1fr;
+        }
+
+        /* Tarjeta: imagen arriba, texto abajo (lo que ya teníamos) */
+        .product-card__content {
+          flex-direction: column;
+          align-items: flex-start;
+          max-width: 100%; /* que use todo el ancho disponible */
+        }
+
+        .product-card__image-wrapper {
+          width: 100%;
+        }
+
+        .product-card__image,
+        .product-card__image--placeholder {
+          width: 100%;
+          height: 180px;
+          border-radius: 16px;
+        }
+
+        .product-card__body {
+          margin-top: 10px;
+        }
+      }
+
+      /* BADGES */
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 10px;
+        line-height: 1.2;
+        white-space: nowrap;
+      }
+
+      .badge--category {
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid rgba(148, 163, 184, 0.45);
+        opacity: 0.9;
+      }
+
+      .badge--special {
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        background: #facc15;
+        color: #111827;
+        font-weight: 600;
+      }
+
+      .badge--marketplace {
+        font-size: 11px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.45);
+      }
+
+      /* FOOTER */
+
+      .footer {
+        margin-top: 48px;
+        text-align: center;
+        font-size: 11px;
+        opacity: 0.7;
+      }
+
+      .footer p {
+        margin: 2px 0;
+      }
+    </style>
   </body>
 </html>
