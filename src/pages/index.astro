@@ -1,6 +1,20 @@
 ---
+export const prerender = false; // 👈 esta página se renderiza en el servidor
+
 import { fetchLinksFromNotion, type LinkItem } from "../lib/notion";
 
+// Accedemos al response de Astro para poner headers
+const { response } = Astro;
+
+// Cache-Control para Vercel (ISR):
+// - s-maxage=60  -> 60s de caché en el edge
+// - stale-while-revalidate=300 -> sirve viejo mientras revalida durante 5min
+response.headers.set(
+  "Cache-Control",
+  "public, s-maxage=60, stale-while-revalidate=300"
+);
+
+// Aquí sigues igual que antes
 const links: LinkItem[] = await fetchLinksFromNotion();
 
 const highlighted = links.filter((l) => l.highlight);
