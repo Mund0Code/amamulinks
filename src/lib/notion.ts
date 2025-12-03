@@ -82,7 +82,7 @@ export async function fetchLinksFromNotion(): Promise<LinkItem[]> {
 
   // 2) Fallback robusto: llamada manual a la ruta v1/databases/.../query
   const res = await notion.request({
-    path: `v1/databases/${dbId}/query`, // 👈 aquí estaba el fallo: faltaba "v1/"
+    path: `v1/databases/${dbId}`, // 👈 aquí estaba el fallo: faltaba "v1/"
     method: "post",
     body: {},
   });
